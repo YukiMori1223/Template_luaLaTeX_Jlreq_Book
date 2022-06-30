@@ -1,0 +1,259 @@
+%フォント=======================================================================================
+\usepackage[match,no-math]{luatexja-fontspec}
+\setmainjfont[BoldFont=HaranoAjiMincho-Bold]{HaranoAjiMincho-Regular}
+\setsansjfont[BoldFont=HaranoAjiGothic-Bold]{HaranoAjiGothic-Medium}
+\setsansfont{TeX Gyre Heros}
+\setmonofont{inconsolata}
+
+% 見出し=======================================================================================
+% 見出しは1, 1.1, 1.1.1, (a)まで
+\setcounter{secnumdepth}{3}
+% subsubsectionの番号を(a),(b),(c),...に
+\renewcommand\thesubsubsection{(\alph{subsubsection})}
+% sectionのデザイン
+\ModifyHeading{section}{
+	format={
+			\begin{tcolorbox}[
+					enhanced jigsaw,
+					breakable=false,
+					outer arc=0pt, arc=0pt,
+					colback=white,
+					leftrule=8pt, rightrule=0pt, toprule=0pt, bottomrule=1pt,
+					left=3pt,right=0pt,top=0pt, bottom=0pt,
+					colframe=darkgray,
+				]
+				\noindent #1 #2
+			\end{tcolorbox}
+		},
+	lines=3,
+	after_label_space=3pt
+}
+
+% ヘッダ・フッタ=======================================================================================
+\NewPageStyle{mystyle}{
+	nombre_position=bottom-center,
+	running_head_position=top-right,
+	odd_running_head=_section,
+	running_head_ii_position=top-left,
+	odd_running_head_ii=_chapter,
+	mark_format={
+			_section={\thesection #1},
+			_chapter={第\thechapter 章 #1},
+		},
+	odd_head_format={\hss\underline{\makebox[\jlreqyokoheadlength][s]{#1}}\hss},
+}
+\pagestyle{mystyle}
+
+%数式 =======================================================================================
+\usepackage{amsthm,amsmath,amssymb,amsfonts}
+\usepackage{siunitx}
+\sisetup{
+	group-digits= integer,
+	group-separator= {,},
+}
+\numberwithin{equation}{chapter}
+
+%図表 =======================================================================================
+\usepackage{graphicx,xcolor}
+\usepackage{float}
+\usepackage{makecell}
+\numberwithin{figure}{chapter}
+\numberwithin{table}{chapter}
+
+%リンク =======================================================================================
+%hyperref
+\usepackage[
+	unicode,
+	bookmarks=true,
+	bookmarksdepth=2,
+	bookmarksnumbered=true,
+	setpagesize=false,
+	pdfborder={0 0 0},
+	pdftitle={},
+	pdfsubject={},
+	pdfauthor={}
+]{hyperref}
+
+%autorefの定義
+\def\equationautorefname~#1\null{\textrm{~式(#1)\;}\null}
+\def\figureautorefname~#1\null{図~#1\null}
+\def\tableautorefname~#1\null{表~#1\null}
+\def\partautorefname~#1\null{第~#1部\null}
+\def\chapterautorefname~#1\null{第~#1章\null}
+% \def\sectionautorefname~#1\null{第~#1節\null}
+% \def\subsectionautorefname~#1\null{~#1節\null}
+\def\pageautorefname~#1\null{~#1ページ \null}
+
+%囲み枠 =======================================================================================
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins, theorems}
+
+% 証明環境
+\renewcommand{\proofname}{{【証明】}}
+
+% 命題環境
+\newtcbtheorem[auto counter, number within=chapter]{theorem}{命題}{
+	enhanced, breakable, sharp corners,
+	before skip=20pt,
+	after skip=20pt,
+	boxrule=1pt,
+	colframe=black!80,
+	colback=white,
+	fonttitle=\bfseries\sffamily,
+	colbacktitle =black!80,
+	lefttitle=4mm,
+	separator sign={：}
+}{theorem}
+
+% 定義環境
+\newtcbtheorem[auto counter, number within=chapter]{definition}{定義}{
+	enhanced, breakable, sharp corners,
+	before skip=20pt,
+	after skip=20pt,
+	boxrule=1pt,
+	colframe=black!50,
+	colback=white,
+	fonttitle=\bfseries\sffamily,
+	colbacktitle =black!50,
+	lefttitle=4mm,
+	separator sign={：}
+}{def}
+
+%コラム環境
+\newtcbtheorem[auto counter, number within=chapter]{column}{コラム}{
+	enhanced, breakable,
+	before skip=20pt,
+	after skip=20pt,
+	boxrule=1pt,
+	colframe=black!50,
+	colbacktitle =black!50,
+	colback=white,
+	fonttitle=\bfseries\sffamily,
+	separator sign={：}
+}{column}
+
+% プログラム環境
+\tcbuselibrary{listings,skins,breakable}
+\let\theHFancyVerbLine\theFancyVerbLine
+\def\theFancyVerbLine{\rmfamily\footnotesize{\arabic{FancyVerbLine}}}
+\usepackage{shellesc}
+\tcbuselibrary{minted}
+
+\newtcblisting[auto counter, number within=chapter]{program}[3][text]{
+	breakable, enhanced, listing only, sharp corners,
+	before skip=20pt,
+	after skip=20pt,
+	boxrule=1pt,
+	colframe=blue!50,
+	colback=white,
+	listing engine=minted,
+	minted language=#1,
+	minted style=vs,
+	minted options={
+			linenos,
+			breaklines,
+			autogobble,
+			fontsize=\normalsize,
+			numbersep=2mm,
+			baselinestretch=1},
+	overlay={
+			\begin{tcbclipinterior}
+				\fill[gray!25] (frame.south west) rectangle ([xshift=4mm]frame.north west);
+			\end{tcbclipinterior}},
+	title={プログラム \thetcbcounter ： #2 },
+	fonttitle=\bfseries\sffamily,
+	colbacktitle =blue!50,
+	lefttitle=4mm,
+	label = program:#3,
+}
+
+\newtcblisting{program*}[1]{
+	breakable, enhanced, listing only, sharp corners,
+	before skip=20pt,
+	after skip=20pt,
+	boxrule=1pt,
+	colframe=blue!50,
+	colback=white,
+	listing engine=minted,
+	minted language=#1,
+	minted style=vs,
+	minted options={
+			linenos,
+			breaklines,
+			autogobble,
+			fontsize=\normalsize,
+			numbersep=2mm,
+			baselinestretch=1},
+	overlay={
+			\begin{tcbclipinterior}
+				\fill[gray!25] (frame.south west) rectangle ([xshift=4mm]frame.north west);
+			\end{tcbclipinterior}
+		}
+}
+
+\newtcblisting[auto counter, number within=chapter]{console}[2]{
+	breakable, enhanced, listing only, sharp corners,
+	before skip=20pt,
+	after skip=20pt,
+	boxrule=1pt,
+	colframe=black!50,
+	colback=black,
+	coltext=white,
+	title={出力 \thetcbcounter ： #1 },
+	fonttitle=\bfseries\sffamily,
+	colbacktitle =black!50,
+	lefttitle=4mm,
+	label = console:#2
+}
+
+\newtcblisting{console*}{
+	breakable, enhanced, listing only, sharp corners,
+	before skip=20pt,
+	after skip=20pt,
+	boxrule=0pt,
+	colframe=black!50,
+	colback=black,
+	coltext=white
+}
+
+% 索引 =======================================================================================
+\usepackage{needspace}
+\usepackage{makeidx}\makeindex
+\usepackage{multicol}
+\makeatletter
+\renewenvironment{theindex}{%
+	\columnsep2\zw
+	\columnseprule\z@
+	\begin{multicols}{2}[\section*{\indexname}]%
+		\small
+		\@mkboth{\indexname}{\indexname}%
+		\parindent\z@
+		\parskip\z@
+		\lineskiplimit\z@
+		\lineskip\z@
+		\raggedbottom
+		\raggedcolumns
+		\raggedright
+		\let\item\@idxitem}
+		{\end{multicols}
+	\clearpage}
+
+\renewcommand{\@idxitem}{\par\leavevmode\hangindent1\zw\inhibitglue}
+\renewcommand{\subitem}{\@idxitem\hangindent2\zw\hspace*{1\zw}\inhibitglue}
+\renewcommand{\subsubitem}{\@idxitem\hangindent3\zw\hspace*{2\zw}\inhibitglue}
+\renewcommand{\indexspace}{\par\vskip\baselineskip\relax}
+
+\newcommand\idxdelim{\nobreak{\reset@font\scriptsize\space
+		\leaders\hbox to .3333\zw{\hss\hbox{.}\hss}\hfill\space}\nobreak}
+
+\newcommand*{\symbolindexname}{記号・数字}
+
+\def\makeidxhead#1{%
+	\needspace{2\baselineskip}%
+	\vspace{\baselineskip}%
+	\hbox to \columnwidth{\hfil
+		\normalsize\sffamily\bfseries
+		-\hspace{.5\zw}#1\hspace{.5\zw}-\hfil}\par
+	\nopagebreak
+}
+\makeatother

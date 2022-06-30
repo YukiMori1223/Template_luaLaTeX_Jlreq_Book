@@ -1,0 +1,32 @@
+\documentclass[a4paper,openany,book,oneside]{jlreq}
+\input{pkg/preamble}
+
+\title{Lua\LaTeX とjlreqによる文書テンプレート}
+\author{森 勇稀\thanks{博士(工学) \url{mori19931223@gmail.com}}}
+\date{更新日：\today}
+
+\begin{document}
+
+% タイトル
+\maketitle
+
+% 目次
+\frontmatter
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+% 内容
+\mainmatter
+\input{src/sample}
+
+\backmatter
+
+% 参考文献
+\bibliographystyle{unsrt}
+\bibliography{pkg/ref}
+
+% 索引
+\clearpage
+\printindex
+
+\end{document}

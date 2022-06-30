@@ -1,0 +1,166 @@
+\chapter{使い方}
+\section{節}
+Sectionは上のようになる。
+\subsection{小節}
+Subsectionは上のようになる。
+\subsubsection{小小節}
+Subsubsectionは上のように、番号がつかないようにしている。
+
+\section{文字の装飾}
+文字に対しては\textbf{太字(bold style)}や、\textit{斜体(italic type)}などがある。ただし、日本語では斜体が適用されないので、基本的に斜体は使用しないほうが良いと思われる。また、太字に関しては\textbf{\textgt{ゴシック体の太字も可能}}である。実際に使用する際には\verb|emph{}|を使用して\emph{このようにしておくと、Englishは斜体に、日本語はゴシック体になる}。
+
+コードなどを表現したいときはタイプライター形式を利用して\verb|void PrintHelloWorld()|などのようにする。{\Large 文字を大きくしたり}するのはあまり使わないほうがいいだろう。
+
+脚注はこの\footnote{ここに脚注が現れる}ようになる。
+
+\section{単位系}
+単位は\verb|siunitx|パッケージを用いて、\SI{3.14}{kg.m/s^{2}}のように書く。
+
+\section{数式}
+数式は、以下のようにする。
+\begin{equation}
+	\begin{split}
+		\cos{2x} &= \cos^2 x - \sin^2 x \\
+		&= 1 - 2 \sin^2 x \\
+		&= 2 \cos^2 x - 1
+	\end{split}
+	\label{eq:1}
+\end{equation}
+\autoref{eq:1}は、倍角の公式である。
+\begin{equation}
+	\boldsymbol{E}=
+	\begin{pmatrix}
+		1 & 0 & 0 \\
+		0 & 1 & 0 \\
+		0 & 0 & 1 \\
+	\end{pmatrix}
+	\label{eq:2}
+\end{equation}
+一つの式を複数行にする場合には\verb|split|環境を、複数の式を揃えるときには\verb|aligned|環境を使うといいらしい。基本的にすべての数式には番号を振り、ラベルもつけておきたい。
+
+\section{表}
+表は、例えば以下のようになる。
+\begin{table}[ht]
+	\centering
+	\caption{表のテスト}
+	\label{table:sample-1}
+	\begin{tabular}{l|cc}
+		\hline
+		Name              & Case 1-1                             & Case 1-2     \\
+		\hline
+		Timestep          & \multicolumn{2}{c}{ \SI{1.0e-3}{s}}                 \\
+		Spring constant   & \multicolumn{2}{c}{\SI{1.0e+3}{N/m}}                \\
+		Particle diameter & \multicolumn{2}{c}{\SI{1.0e-4}{m}}                  \\
+		Particle number   & \SI{10000}{}                         & \SI{40000}{} \\
+		CFD grid size     & \SI{1e-3}{m}                         & \SI{2e-3}{m} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\section{プログラム}
+以下にプログラムの例を示す。
+\begin{program}[C++]{プログラムの例, Hello worldの出力}{sample-1}
+	#include <iostream>
+	using namespace std;
+	int main(){
+			cout << "Hello world." << endl; //Hello worldと表示
+			return 0;
+		}
+\end{program}
+プログラム\ref{program:sample-1}は、Hello worldである。
+
+\begin{console}{コンソール出力の例}{sample-1}
+	> Hello, world.
+\end{console}
+出力\ref{console:sample-1}は、Hello worldの出力例である。プログラムと出力は、それぞれ番号のないものを以下のように使用できる。
+
+\begin{program*}{C++}
+	#include <iostream>
+	using namespace std;
+	int main(){
+			cout << "Hello world." << endl;
+			return 0;
+		}
+\end{program*}
+
+\begin{console*}
+	> Hello, world.
+\end{console*}
+
+\section{定理環境}
+以下に定理環境を示す。
+\begin{theorem*}{番号のない定理}
+	1+1は2である。
+\end{theorem*}
+\begin{proof}
+	1+1の証明は難しい。ペアノの公理を前提とするのであれば、自然数の単位元1に対するSUC(1)として2を定義すれば、1+1が2であることは自明となる。
+\end{proof}
+\begin{theorem}{番号のある定理}{sample-1}
+	1+1は2である。
+\end{theorem}
+命題\ref{theorem:sample-1}は、謎の定理である。
+
+\section{定義環境}
+以下に定義環境を示す。
+\begin{definition*}{番号のない定義}
+	1+1は2である。
+\end{definition*}
+
+\begin{definition}{番号のある定義}{sample-1}
+	1+1は2である。
+\end{definition}
+定義\ref{def:sample-1}は、謎の定義である。
+
+\section{コラム}
+以下はコラムである。
+\begin{column*}{スパコン}
+	これはコラムである。
+\end{column*}
+
+\section{図環境}
+以下にTikZ環境を示す。
+\begin{figure}[ht]
+	\centering
+	\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+		%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+		%Straight Lines [id:da43184342151633226]
+		\draw    (237.2,140.8) -- (278.38,111.17) ;
+		\draw [shift={(280,110)}, rotate = 144.26] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+		%Straight Lines [id:da3951311835524338]
+		\draw    (178.4,216.4) -- (378,216.4) ;
+		\draw [shift={(380,216.4)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+		%Straight Lines [id:da5714451419136652]
+		\draw    (212,250) -- (212,58.8) ;
+		\draw [shift={(212,56.8)}, rotate = 90] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+		%Straight Lines [id:da3167712754814036]
+		\draw  [dash pattern={on 4.5pt off 4.5pt}]  (235.67,204.56) -- (395.2,84.6) ;
+		\draw [shift={(396.8,83.4)}, rotate = 143.06] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+		%Straight Lines [id:da1543708700320594]
+		\draw  [dash pattern={on 4.5pt off 4.5pt}]  (286.11,211.22) -- (171.2,58.4) ;
+		\draw [shift={(170,56.8)}, rotate = 53.06] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+		% Text Node
+		\draw (195.16,199.08) node [anchor=north west][inner sep=0.75pt]   [align=left] {A};
+		% Text Node
+		\draw (243.23,177.38) node [anchor=north west][inner sep=0.75pt]  [rotate=-323.06] [align=left] {B};
+		% Text Node
+		\draw (377,192.4) node [anchor=north west][inner sep=0.75pt]    {$x$};
+		% Text Node
+		\draw (217,42.4) node [anchor=north west][inner sep=0.75pt]    {$y$};
+		% Text Node
+		\draw (384.6,66) node [anchor=north west][inner sep=0.75pt]    {$x'$};
+		% Text Node
+		\draw (180,42.4) node [anchor=north west][inner sep=0.75pt]    {$y'$};
+	\end{tikzpicture}
+	\caption{座標変換に対するベクトルの普遍性}
+	\label{fig:Vector}
+\end{figure}
+
+\autoref{fig:Vector}は、座標変換に対するベクトルの普遍性を説明している。
+
+\section{参考文献}
+参考文献は、文献\cite{Rayleigh1917}などのように記載する。
+
+\section{索引}
+索引に用語を表示するには、\verb|index|環境を用いて、離散要素法\index{りさんようそよう@離散要素法}とする。
