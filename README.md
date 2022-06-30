@@ -19,7 +19,7 @@ LuaLaTeX とjlreq を用いたLaTeXテンプレート(枠囲み付き)
     - Github Actions を用いた自動ビルド・リリース機能がある
     - ```v*.*.*```のタグを付けるとリリースされる
     - プッシュするとビルドされ、Github Pages にアップロードされる。
-        - このリポジトリでは、[https://yukimori1223.github.io/Template_lualatex_jlreq_book/main.pdf](https://yukimori1223.github.io/Template_lualatex_jlreq_book/main.pdf)にアップロードされる。
+        - このリポジトリでは、[https://yukimori1223.github.io/Template_luaLaTeX_jlreq_book/main.pdf](https://yukimori1223.github.io/Template_luaLaTeX_jlreq_book/main.pdf)にアップロードされる。
 
 ## システム要件
 - TeX live 2021 or later
